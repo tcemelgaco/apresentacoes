@@ -11,8 +11,6 @@
 <style>
 :root{
   --bg:#0b1220;
-  --primary:#4d78ff;
-  --accent:#ffa14d;
   --muted:rgba(255,255,255,.85);
   --glass:rgba(255,255,255,.06);
   --border:rgba(255,255,255,.12);
@@ -25,42 +23,19 @@ body{
   var(--bg);
 }
 
-/* PROGRESS BAR */
-.progress-bar{
-  position:fixed;
-  top:0;
-  left:0;
-  height:4px;
-  width:0%;
-  background:linear-gradient(90deg,var(--primary),var(--accent));
-  z-index:1000;
-  transition:width .4s ease;
-}
-
-.slide-counter{
-  position:fixed;
-  bottom:18px;
-  right:24px;
-  font-size:14px;
-  color:var(--muted);
-  z-index:1000;
-}
-
 /* FULL IMAGE */
 .full-image{
   width:100%;
   height:75vh;
-  border-radius:20px;
   overflow:hidden;
+  border-radius:20px;
 }
-
 .full-image img{
   width:100%;
   height:100%;
   object-fit:cover;
-  animation:zoom 14s ease-in-out infinite alternate;
+  animation:zoom 16s ease-in-out infinite alternate;
 }
-
 @keyframes zoom{
   from{transform:scale(1);}
   to{transform:scale(1.08);}
@@ -75,14 +50,11 @@ body{
 }
 
 .image-frame{
-  width:100%;
   aspect-ratio:16/9;
   overflow:hidden;
   border-radius:18px;
   border:1px solid var(--border);
-  box-shadow:0 30px 70px rgba(0,0,0,.6);
 }
-
 .image-frame img{
   width:100%;
   height:100%;
@@ -95,22 +67,29 @@ body{
   border-radius:18px;
   padding:30px;
   backdrop-filter:blur(12px);
-  box-shadow:0 30px 70px rgba(0,0,0,.55);
   text-align:left;
 }
-
 .panel li{
   font-size:22px;
   margin:10px 0;
   color:var(--muted);
 }
+
+.block{
+  text-align:left;
+}
+.block h2{
+  font-size:58px;
+}
+.block p{
+  font-size:24px;
+  color:var(--muted);
+  max-width:900px;
+}
 </style>
 </head>
 
 <body>
-
-<div class="progress-bar" id="progress"></div>
-<div class="slide-counter" id="counter"></div>
 
 <div class="reveal">
 <div class="slides">
@@ -122,81 +101,320 @@ body{
 </div>
 </section>
 
-<!-- FUNÇÃO PARA GERAR EIXOS -->
-<!-- Cada eixo tem 2 níveis verticais -->
-
-<!-- EIXO TEMPLATE (copiado para todos) -->
-
-<section>
-
-  <!-- IMAGEM FULL -->
-  <section data-transition="zoom">
-    <div class="full-image">
-      <img src="assets/eixo1.png">
-    </div>
-  </section>
-
-  <!-- ZOOM OUT + TEXTO -->
-  <section data-transition="fade">
-    <div class="two-col">
-      <div class="image-frame">
-        <img src="assets/eixo1.png">
-      </div>
-      <div class="panel">
-        <h2>Capacidade vs Demanda</h2>
-        <ul>
-          <li class="fragment">26 pessoas</li>
-          <li class="fragment">Projetos estratégicos + sustentação</li>
-          <li class="fragment">Capacidade finita</li>
-          <li class="fragment"><strong>Demanda não é</strong></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
+<!-- BLOCO 1 -->
+<section class="block" data-transition="fade">
+<h2>A Realidade Operacional</h2>
+<p>Capacidade finita, demanda crescente e pressão por previsibilidade.</p>
 </section>
 
-<!-- DUPLIQUEI A LÓGICA PARA TODOS OS EIXOS -->
+<!-- ====== FUNÇÃO DE EIXO ====== -->
+<!-- Para cada eixo: imagem full -> zoom out + texto -->
 
+<!-- EIXO 1 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo1.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo1.png"></div>
+<div class="panel">
+<h2>Capacidade vs Demanda</h2>
+<ul>
+<li class="fragment">26 pessoas</li>
+<li class="fragment">Projetos estratégicos</li>
+<li class="fragment">Sustentação contínua</li>
+<li class="fragment"><strong>Capacidade finita • Demanda crescente</strong></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 2 -->
 <section>
 <section data-transition="zoom">
 <div class="full-image"><img src="assets/eixo6.png"></div>
 </section>
-<section data-transition="fade">
+<section>
 <div class="two-col">
 <div class="image-frame"><img src="assets/eixo6.png"></div>
 <div class="panel">
 <h2>Multialocação Crônica</h2>
 <ul>
 <li class="fragment">Múltiplos projetos simultâneos</li>
-<li class="fragment">Urgências competem com entregas</li>
-<li class="fragment">Fragmentação reduz eficiência</li>
+<li class="fragment">Urgências competem com planejamento</li>
+<li class="fragment">Fragmentação reduz eficiência real</li>
 </ul>
 </div>
 </div>
 </section>
 </section>
 
+<!-- EIXO 3 -->
 <section>
 <section data-transition="zoom">
 <div class="full-image"><img src="assets/eixo2.png"></div>
 </section>
-<section data-transition="fade">
+<section>
 <div class="two-col">
 <div class="image-frame"><img src="assets/eixo2.png"></div>
 <div class="panel">
 <h2>Sustentação Reativa</h2>
 <ul>
 <li class="fragment">Chamados recorrentes</li>
-<li class="fragment">Tratamentos paliativos</li>
-<li class="fragment">Custo invisível</li>
+<li class="fragment">Tratamento paliativo</li>
+<li class="fragment">Custo invisível acumulado</li>
 </ul>
 </div>
 </div>
 </section>
 </section>
 
-<!-- Continue mesmo padrão para eixo11, eixo5, eixo14, eixo3, eixo4, eixo7, eixo12, eixo13, eixo8, eixo9, eixo10 -->
+<!-- EIXO 4 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo11.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo11.png"></div>
+<div class="panel">
+<h2>Interface com Nível 1</h2>
+<ul>
+<li class="fragment">Falha na transferência de conhecimento</li>
+<li class="fragment">Triagem incorreta</li>
+<li class="fragment">Sobrecarga artificial</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- BLOCO 2 -->
+<section class="block" data-transition="fade">
+<h2>Causas Estruturais</h2>
+<p>Qualidade, documentação, atualização tecnológica e governança.</p>
+</section>
+
+<!-- EIXO 5 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo5.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo5.png"></div>
+<div class="panel">
+<h2>Bypass da Qualidade</h2>
+<ul>
+<li class="fragment">Entrega direta em produção</li>
+<li class="fragment">QA não integrado ao fluxo</li>
+<li class="fragment">Retrabalho posterior</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 6 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo14.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo14.png"></div>
+<div class="panel">
+<h2>Fragilidade de Documentação</h2>
+<ul>
+<li class="fragment">Ausência de topologia estruturada</li>
+<li class="fragment">Dependência de pessoas</li>
+<li class="fragment">Sem documentação não há sustentabilidade</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 7 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo3.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo3.png"></div>
+<div class="panel">
+<h2>Débito Técnico</h2>
+<ul>
+<li class="fragment">Frameworks defasados</li>
+<li class="fragment">Atualizações postergadas</li>
+<li class="fragment">Risco institucional acumulado</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 8 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo4.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo4.png"></div>
+<div class="panel">
+<h2>Papéis e Governança</h2>
+<ul>
+<li class="fragment">Papéis técnicos existem</li>
+<li class="fragment">Falta formalização estratégica</li>
+<li class="fragment">Clareza estrutural necessária</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- BLOCO 3 -->
+<section class="block" data-transition="fade">
+<h2>Impacto Institucional</h2>
+<p>Quando a soma dos fatores vira risco.</p>
+</section>
+
+<!-- EIXO 9 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo7.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo7.png"></div>
+<div class="panel">
+<h2>Risco Institucional</h2>
+<ul>
+<li class="fragment">Sustentação reativa</li>
+<li class="fragment">Débito técnico</li>
+<li class="fragment">Multialocação</li>
+<li class="fragment"><strong>Risco estrutural</strong></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- BLOCO 4 -->
+<section class="block" data-transition="fade">
+<h2>Oportunidades Estratégicas</h2>
+<p>Ampliar capacidade efetiva e preparar para IA.</p>
+</section>
+
+<!-- EIXO 10 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo12.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo12.png"></div>
+<div class="panel">
+<h2>IA Interna</h2>
+<ul>
+<li class="fragment">Acelerar desenvolvimento</li>
+<li class="fragment">Automatizar testes</li>
+<li class="fragment">IA como alavanca</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 11 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo13.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo13.png"></div>
+<div class="panel">
+<h2>IA Estratégica</h2>
+<ul>
+<li class="fragment">Governança de dados</li>
+<li class="fragment">Arquitetura estruturada</li>
+<li class="fragment">IA como estratégia institucional</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- BLOCO 5 -->
+<section class="block" data-transition="fade">
+<h2>A Virada</h2>
+<p>Modelo sustentável e decisão estratégica.</p>
+</section>
+
+<!-- EIXO 12 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo8.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo8.png"></div>
+<div class="panel">
+<h2>Modelo Sustentável</h2>
+<ul>
+<li class="fragment">Separação de fluxos</li>
+<li class="fragment">Qualidade integrada</li>
+<li class="fragment">Redução de recorrência</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 13 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo9.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo9.png"></div>
+<div class="panel">
+<h2>Decisão Estratégica</h2>
+<ul>
+<li class="fragment">Manter também é decidir</li>
+<li class="fragment">Evoluir exige disciplina</li>
+<li class="fragment">Escolha estratégica</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+<!-- EIXO 14 -->
+<section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo10.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo10.png"></div>
+<div class="panel">
+<h2>Plano de Transição — 90 Dias</h2>
+<ul>
+<li class="fragment">0–30 Estabilização</li>
+<li class="fragment">30–60 Organização</li>
+<li class="fragment">60–90 Evolução estrutural</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
 <!-- ENCERRAMENTO -->
 <section data-transition="fade">
@@ -215,15 +433,6 @@ Reveal.initialize({
 hash:true,
 transition:'slide',
 backgroundTransition:'fade'
-});
-
-Reveal.on('slidechanged', function(){
-const total = Reveal.getTotalSlides();
-const index = Reveal.getSlidePastCount();
-document.getElementById('progress').style.width =
-(index/(total-1))*100 + '%';
-document.getElementById('counter').innerText =
-(index+1) + ' / ' + total;
 });
 </script>
 
