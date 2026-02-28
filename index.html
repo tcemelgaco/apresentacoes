@@ -9,756 +9,426 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/theme/black.css">
 
 <style>
-  :root{
-    --bg:#0b1220;
-    --primary:#4d78ff;
-    --accent:#ffa14d;
+:root{
+  --bg:#0b1220;
+  --primary:#4d78ff;
+  --accent:#ffa14d;
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.75);
+  --glass:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.12);
+}
 
-    --text: rgba(255,255,255,.92);
-    --muted: rgba(255,255,255,.78);
+body{
+  background:
+  radial-gradient(circle at 15% 15%, rgba(77,120,255,.18), transparent 50%),
+  radial-gradient(circle at 85% 30%, rgba(255,161,77,.12), transparent 55%),
+  var(--bg);
+}
 
-    --glass: rgba(255,255,255,.06);
-    --border: rgba(255,255,255,.12);
+/* FULL IMAGE */
+.full-image{
+  width:100%;
+  height:75vh;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.55);
+}
 
-    --shadow: 0 30px 70px rgba(0,0,0,.55);
-    --radius: 18px;
-  }
+.full-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  animation:zoom 16s ease-in-out infinite alternate;
+}
 
-  body{
-    background:
-      radial-gradient(circle at 15% 15%, rgba(77,120,255,.18), transparent 50%),
-      radial-gradient(circle at 85% 30%, rgba(255,161,77,.12), transparent 55%),
-      var(--bg);
-  }
+@keyframes zoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.06);}
+}
 
-  /* Ajuste geral do Reveal para dar “respiro” */
-  .reveal{
-    color: var(--text);
-  }
-  .reveal .slides{
-    /* ajuda em telas menores/projetor */
-    text-rendering: geometricPrecision;
-  }
+/* LAYOUT 2 COL */
+.two-col{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:40px;
+  align-items:center;
+}
 
-  /* Barra de progresso e contador */
-  .progress-bar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4px;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    z-index: 1000;
-    transition: width .35s ease;
-  }
-  .slide-counter{
-    position: fixed;
-    bottom: 16px;
-    right: 22px;
-    font-size: 14px;
-    color: var(--muted);
-    z-index: 1000;
-    opacity: .9;
-  }
+/* IMAGEM PEQUENA — VERSÃO CORRETA */
+.image-frame{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-  /* FULL (imagem “de impacto”) */
-  .full-image{
-    width: 100%;
-    height: 76vh;
-    border-radius: calc(var(--radius) + 2px);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    background: rgba(0,0,0,.25);
-  }
-  .full-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: kenburns 16s ease-in-out infinite alternate;
-    transform-origin: 35% 30%;
-  }
-  @keyframes kenburns{
-    from{ transform: scale(1) translate(0,0); }
-    to  { transform: scale(1.08) translate(-1.2%, -0.8%); }
-  }
+.image-frame img{
+  max-width:100%;
+  max-height:65vh;
+  border-radius:16px;
+  box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
 
-  /* Capa / Encerramento com overlay */
-  .cover-wrap{
-    position: relative;
-    width: 100%;
-    height: 76vh;
-    border-radius: calc(var(--radius) + 2px);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    background: rgba(0,0,0,.25);
-  }
-  .cover-wrap img{
-    width:100%;
-    height:100%;
-    object-fit: cover;
-    animation: kenburns 18s ease-in-out infinite alternate;
-  }
-  .overlay{
-    position:absolute;
-    inset:0;
-    background: linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.18) 58%, rgba(0,0,0,.35));
-  }
-  .cover-text{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding: 56px 58px;
-    text-align:left;
-  }
-  .kicker{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    width: fit-content;
-    padding: 10px 14px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: rgba(0,0,0,.28);
-    color: var(--muted);
-    backdrop-filter: blur(10px);
-    font-size: 15px;
-    margin-bottom: 16px;
-  }
-  .cover-text h1{
-    margin: 0 0 10px;
-    font-size: 58px;
-    letter-spacing: -0.02em;
-  }
-  .cover-text p{
-    margin: 0;
-    max-width: 980px;
-    font-size: 22px;
-    color: var(--muted);
-    line-height: 1.35;
-  }
-  .chips{
-    margin-top: 16px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-  .chip{
-    padding: 8px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: rgba(0,0,0,.25);
-    color: var(--text);
-    font-size: 13px;
-    opacity: .95;
-    backdrop-filter: blur(10px);
-  }
+/* PAINEL */
+.panel{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:30px;
+  backdrop-filter:blur(14px);
+  text-align:left;
+}
 
-  /* Slides de bloco (divisores) */
-  .block{
-    text-align:left;
-    padding: 0 18px;
-  }
-  .block h2{
-    margin: 0 0 10px;
-    font-size: 62px;
-    letter-spacing: -0.02em;
-  }
-  .block p{
-    margin: 0;
-    font-size: 24px;
-    color: var(--muted);
-    max-width: 980px;
-    line-height: 1.35;
-  }
+.panel h2{
+  margin-bottom:15px;
+  font-size:38px;
+}
 
-  /* Layout 2 colunas (imagem pequena + texto) */
-  .two-col{
-    display:grid;
-    grid-template-columns: 1.22fr 0.98fr;
-    gap: 30px;
-    align-items: center;
-  }
+.panel li{
+  font-size:22px;
+  margin:10px 0;
+  color:var(--muted);
+}
 
-  /* Frame 16:9 padronizado SEM CORTE (contain + padding) */
-  .image-frame{
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: rgba(0,0,0,.28);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.block{
+  text-align:left;
+}
 
-    /* margem interna para garantir “dentro do espaço” */
-    padding: 14px;
-  }
-  .image-frame img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* IMPORTANTÍSSIMO: não corta */
-  }
+.block h2{
+  font-size:60px;
+}
 
-  /* Painel de texto */
-  .panel{
-    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 28px 22px;
-    backdrop-filter: blur(12px);
-    box-shadow: var(--shadow);
-    text-align:left;
-  }
-  .panel h2{
-    margin: 0 0 12px;
-    font-size: 40px;
-    letter-spacing: -0.01em;
-  }
-  .panel ul{
-    margin: 0;
-    padding-left: 18px;
-  }
-  .panel li{
-    margin: 10px 0;
-    font-size: 22px;
-    color: var(--muted);
-    line-height: 1.28;
-  }
-  .panel strong{
-    color: var(--text);
-  }
-
-  /* Melhor leitura em telas menores */
-  @media (max-width: 980px){
-    .two-col{ grid-template-columns: 1fr; }
-    .cover-text{ padding: 34px 28px; }
-    .cover-text h1{ font-size: 44px; }
-    .panel h2{ font-size: 32px; }
-    .panel li{ font-size: 20px; }
-    .block h2{ font-size: 44px; }
-    .block p{ font-size: 20px; }
-  }
+.block p{
+  font-size:24px;
+  color:var(--muted);
+  max-width:900px;
+}
 </style>
 </head>
 
 <body>
-<div class="progress-bar" id="progress"></div>
-<div class="slide-counter" id="counter">1 / 1</div>
 
 <div class="reveal">
-  <div class="slides">
+<div class="slides">
 
-    <!-- SLIDE 1 — ABERTURA (capa) -->
-    <section data-transition="fade">
-      <div class="cover-wrap">
-        <img src="assets/cover.png" alt="Capa">
-        <div class="overlay"></div>
-        <div class="cover-text">
-          <div class="kicker">Diretoria de Desenvolvimento e Sustentação de Sistemas</div>
-          <h1>Transformação Estrutural</h1>
-          <p>
-            Esta apresentação trata de sustentabilidade, governança e responsabilidade institucional
-            para entregar valor público com previsibilidade.
-          </p>
-          <div class="chips">
-            <span class="chip">Capacidade</span>
-            <span class="chip">Sustentação</span>
-            <span class="chip">Qualidade</span>
-            <span class="chip">Arquitetura</span>
-            <span class="chip">Governança</span>
-            <span class="chip">IA</span>
-          </div>
-        </div>
-      </div>
+<!-- CAPA -->
+<section>
+<div class="full-image">
+<img src="assets/cover.png">
+</div>
+</section>
 
-      <aside class="notes">
-        Esta apresentação não trata apenas de tecnologia.
-        Trata de sustentabilidade, governança e responsabilidade institucional.
-        Nosso objetivo hoje é olhar para a estrutura da Diretoria de Sistemas de forma madura e estratégica.
-      </aside>
-    </section>
+<!-- BLOCO 1 -->
+<section class="block">
+<h2>A Realidade Operacional</h2>
+<p>Capacidade finita, demanda crescente e pressão institucional.</p>
+</section>
 
-    <!-- BLOCO 1 — A REALIDADE OPERACIONAL -->
-    <section class="block" data-transition="fade">
-      <div class="kicker">BLOCO 1</div>
-      <h2>A Realidade Operacional</h2>
-      <p>Capacidade finita, demanda crescente e pressão por previsibilidade.</p>
-    </section>
+<!-- EIXO 1 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo1.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo1.png"></div>
+<div class="panel">
+<h2>Capacidade vs Demanda</h2>
+<ul>
+<li class="fragment">26 pessoas</li>
+<li class="fragment">Projetos estratégicos</li>
+<li class="fragment">Sustentação contínua</li>
+<li class="fragment"><strong>Demanda crescente</strong></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 2 — Capacidade vs Demanda (2 etapas: full -> zoom-out + texto) -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo1.png" alt="Capacidade vs Demanda"></div>
-        <aside class="notes">
-          Hoje temos 26 pessoas.
-          A demanda institucional cresce continuamente.
-          Projetos estratégicos, sustentação, novos desafios e pressão por inovação.
-          A capacidade é finita. A demanda não é.
-          Isso nos leva ao próximo ponto.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo1.png" alt="Capacidade vs Demanda"></div>
-          <div class="panel">
-            <h2>Capacidade vs Demanda</h2>
-            <ul>
-              <li class="fragment">Equipe: <strong>26 pessoas</strong> (capacidade finita).</li>
-              <li class="fragment">Demanda cresce: projetos, sustentação e inovação.</li>
-              <li class="fragment">Pressão por previsibilidade e entregas estratégicas.</li>
-              <li class="fragment"><strong>A demanda não é finita.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 2 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo6.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo6.png"></div>
+<div class="panel">
+<h2>Multialocação Crônica</h2>
+<ul>
+<li class="fragment">Múltiplos projetos</li>
+<li class="fragment">Urgências constantes</li>
+<li class="fragment">Fragmentação reduz eficiência</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 3 — Multialocação Crônica -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo6.png" alt="Multialocação Crônica"></div>
-        <aside class="notes">
-          Muitas pessoas estão envolvidas em múltiplos projetos simultaneamente.
-          Sustentação ocorre em paralelo.
-          Urgências competem com entregas estruturadas.
-          Alta ocupação não significa alta produtividade.
-          Fragmentação reduz eficiência real.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo6.png" alt="Multialocação Crônica"></div>
-          <div class="panel">
-            <h2>Multialocação Crônica</h2>
-            <ul>
-              <li class="fragment">Pessoas em múltiplos projetos simultâneos.</li>
-              <li class="fragment">Sustentação em paralelo e urgências constantes.</li>
-              <li class="fragment">Alta ocupação ≠ alta produtividade.</li>
-              <li class="fragment"><strong>Fragmentação reduz eficiência real.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 3 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo2.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo2.png"></div>
+<div class="panel">
+<h2>Sustentação Reativa</h2>
+<ul>
+<li class="fragment">Chamados recorrentes</li>
+<li class="fragment">Tratamento paliativo</li>
+<li class="fragment">Custo invisível</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 4 — Sustentação Reativa / Custo Invisível -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo2.png" alt="Sustentação Reativa"></div>
-        <aside class="notes">
-          Parte relevante da nossa capacidade está sendo consumida por chamados recorrentes.
-          Muitas vezes tratados de forma paliativa.
-          Isso gera um custo invisível.
-          Não aparece como projeto, mas consome homem-hora todos os dias.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo2.png" alt="Sustentação Reativa"></div>
-          <div class="panel">
-            <h2>Sustentação Reativa / Custo Invisível</h2>
-            <ul>
-              <li class="fragment">Capacidade consumida por chamados recorrentes.</li>
-              <li class="fragment">Tratamento paliativo gera repetição.</li>
-              <li class="fragment">Custo “invisível” fora do portfólio.</li>
-              <li class="fragment"><strong>Consome HH diariamente.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 4 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo11.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo11.png"></div>
+<div class="panel">
+<h2>Interface com Nível 1</h2>
+<ul>
+<li class="fragment">Triagem incorreta encourages retrabalho</li>
+<li class="fragment">Falta de transferência de conhecimento</li>
+<li class="fragment">Sobrecarga artificial</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 5 — Interface com Nível 1 -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo11.png" alt="Interface com Nível 1"></div>
-        <aside class="notes">
-          Temos uma central que faz triagem inicial.
-          Mas há falha na transferência de conhecimento.
-          Sistemas são entregues às áreas, mas a central nem sempre recebe treinamento ou documentação adequada.
-          Resultado: dúvidas viram chamados técnicos. Sobrecarga artificial.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo11.png" alt="Interface com Nível 1"></div>
-          <div class="panel">
-            <h2>Interface com Nível 1</h2>
-            <ul>
-              <li class="fragment">Triagem inicial sem base de conhecimento adequada.</li>
-              <li class="fragment">Falha de repasse: treinamento e documentação.</li>
-              <li class="fragment">Dúvidas viram chamados técnicos.</li>
-              <li class="fragment"><strong>Sobrecarga artificial</strong> na equipe.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- BLOCO 2 -->
+<section class="block">
+<h2>Causas Estruturais</h2>
+<p>Qualidade, documentação e governança.</p>
+</section>
 
-    <!-- BLOCO 2 — CAUSAS ESTRUTURAIS -->
-    <section class="block" data-transition="fade">
-      <div class="kicker">BLOCO 2</div>
-      <h2>Causas Estruturais</h2>
-      <p>Qualidade, documentação, evolução tecnológica e governança de responsabilidades.</p>
-    </section>
+<!-- EIXO 5 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo5.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo5.png"></div>
+<div class="panel">
+<h2>Bypass da Qualidade</h2>
+<ul>
+<li class="fragment">Entrega direta em produção</li>
+<li class="fragment">Retrabalho posterior</li>
+<li class="fragment">Instabilidade</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 6 — Bypass da Qualidade -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo5.png" alt="Bypass da Qualidade"></div>
-        <aside class="notes">
-          Em alguns casos, implementações vão direto para produção.
-          QA existe, mas não está plenamente integrado ao fluxo.
-          Quando pulamos etapas de qualidade, o custo aparece depois — retrabalho e instabilidade.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo5.png" alt="Bypass da Qualidade"></div>
-          <div class="panel">
-            <h2>Bypass da Qualidade</h2>
-            <ul>
-              <li class="fragment">Implementações indo direto para produção.</li>
-              <li class="fragment">QA existe, mas fora do fluxo real.</li>
-              <li class="fragment">O custo aparece depois: retrabalho e incidentes.</li>
-              <li class="fragment"><strong>Qualidade é investimento preventivo.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 6 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo14.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo14.png"></div>
+<div class="panel">
+<h2>Fragilidade de Documentação</h2>
+<ul>
+<li class="fragment">Ausência de wiki</li>
+<li class="fragment">Dependência de pessoas</li>
+<li class="fragment">Risco operacional</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 7 — Fragilidade de Documentação -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo14.png" alt="Documentação"></div>
-        <aside class="notes">
-          Nossos sistemas não possuem documentação estruturada mínima.
-          Falta topologia, README padronizado, wiki viva.
-          Isso gera dependência de pessoas, não de processo.
-          Sem documentação, não há sustentabilidade.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo14.png" alt="Documentação"></div>
-          <div class="panel">
-            <h2>Fragilidade de Documentação</h2>
-            <ul>
-              <li class="fragment">Falta topologia, README e wiki viva.</li>
-              <li class="fragment">Dependência de pessoas (conhecimento tácito).</li>
-              <li class="fragment">Onboarding lento e risco operacional.</li>
-              <li class="fragment"><strong>Sem documentação, não há sustentabilidade.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 7 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo3.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo3.png"></div>
+<div class="panel">
+<h2>Débito Técnico</h2>
+<ul>
+<li class="fragment">Framework defasado</li>
+<li class="fragment">Custo futuro elevado</li>
+<li class="fragment">Risco acumulado</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 8 — Débito Técnico e Framework Defasado -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo3.png" alt="Débito Técnico"></div>
-        <aside class="notes">
-          Frameworks não estão sendo atualizados como deveriam.
-          Cada atualização postergada aumenta o custo futuro.
-          Isso não é apenas problema técnico. É risco institucional acumulado.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo3.png" alt="Débito Técnico"></div>
-          <div class="panel">
-            <h2>Débito Técnico e Framework Defasado</h2>
-            <ul>
-              <li class="fragment">Atualizações postergadas acumulam custo futuro.</li>
-              <li class="fragment">Mais risco de segurança e compatibilidade.</li>
-              <li class="fragment">Correção fica mais cara com o tempo.</li>
-              <li class="fragment"><strong>É risco institucional acumulado.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 8 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo4.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo4.png"></div>
+<div class="panel">
+<h2>Papéis e Governança</h2>
+<ul>
+<li class="fragment">Papéis existentes</li>
+<li class="fragment">Responsabilidades difusas</li>
+<li class="fragment">Clareza estrutural necessária</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 9 — Papéis e Governança Parcial -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo4.png" alt="Papéis e Governança"></div>
-        <aside class="notes">
-          Temos UX, Dev, QA, DevOps, mantenedores.
-          Mas precisamos formalizar responsabilidades estratégicas.
-          Arquiteto, dono da sustentação, governança de portfólio.
-          Não é ausência de pessoas. É necessidade de clareza estrutural.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo4.png" alt="Papéis e Governança"></div>
-          <div class="panel">
-            <h2>Papéis e Governança Parcial</h2>
-            <ul>
-              <li class="fragment">Papéis técnicos existem: UX, Dev, QA, DevOps, mantenedores.</li>
-              <li class="fragment">Falta formalizar responsabilidades estratégicas.</li>
-              <li class="fragment">Arquitetura, dono da sustentação, governança de portfólio.</li>
-              <li class="fragment"><strong>Não é falta de gente — é clareza estrutural.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 9 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo7.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo7.png"></div>
+<div class="panel">
+<h2>Risco Institucional</h2>
+<ul>
+<li class="fragment">Sustentação + débito técnico</li>
+<li class="fragment">Governança parcial</li>
+<li class="fragment"><strong>Risco estratégico</strong></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- BLOCO 3 — IMPACTO INSTITUCIONAL -->
-    <section class="block" data-transition="fade">
-      <div class="kicker">BLOCO 3</div>
-      <h2>Impacto Institucional</h2>
-      <p>Quando os fatores se somam, o resultado deixa de ser operacional e vira risco institucional.</p>
-    </section>
+<!-- EIXO 10 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo12.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo12.png"></div>
+<div class="panel">
+<h2>IA Interna</h2>
+<ul>
+<li class="fragment">Acelerar desenvolvimento</li>
+<li class="fragment">Automatizar testes</li>
+<li class="fragment">Potencializar equipe</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 10 — Risco Institucional -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo7.png" alt="Risco Institucional"></div>
-        <aside class="notes">
-          Quando somamos sustentação reativa, débito técnico, multialocação e falha de governança,
-          o resultado não é apenas ineficiência. É risco institucional.
-          Risco de segurança, interrupção e custo exponencial futuro.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo7.png" alt="Risco Institucional"></div>
-          <div class="panel">
-            <h2>Risco Institucional</h2>
-            <ul>
-              <li class="fragment">Sustentação reativa + débito técnico + multialocação.</li>
-              <li class="fragment">Falhas de governança e qualidade.</li>
-              <li class="fragment"><strong>Não é ineficiência — é risco institucional.</strong></li>
-              <li class="fragment">Segurança • interrupção • custo exponencial.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 11 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo13.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo13.png"></div>
+<div class="panel">
+<h2>IA Estratégica</h2>
+<ul>
+<li class="fragment">Governança de dados</li>
+<li class="fragment">Arquitetura estruturada</li>
+<li class="fragment">Visão institucional</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- BLOCO 4 — OPORTUNIDADES ESTRATÉGICAS -->
-    <section class="block" data-transition="fade">
-      <div class="kicker">BLOCO 4</div>
-      <h2>Oportunidades Estratégicas</h2>
-      <p>Ampliar capacidade efetiva e preparar os sistemas do Tribunal para a agenda de IA com governança.</p>
-    </section>
+<!-- EIXO 12 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo8.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo8.png"></div>
+<div class="panel">
+<h2>Modelo Sustentável</h2>
+<ul>
+<li class="fragment">Separação de fluxos</li>
+<li class="fragment">Qualidade integrada</li>
+<li class="fragment">Previsibilidade</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 11 — Potencialização com IA (Interna) -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo12.png" alt="IA Interna"></div>
-        <aside class="notes">
-          Não precisamos apenas de mais pessoas.
-          Precisamos ampliar nossa capacidade efetiva.
-          IA pode acelerar desenvolvimento, testes, documentação e triagem.
-          IA é alavanca de produtividade.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo12.png" alt="IA Interna"></div>
-          <div class="panel">
-            <h2>Potencialização com IA (Interna)</h2>
-            <ul>
-              <li class="fragment">Aumentar capacidade efetiva sem aumentar equipe.</li>
-              <li class="fragment">Acelerar desenvolvimento, testes e documentação.</li>
-              <li class="fragment">Apoiar triagem e redução de retrabalho.</li>
-              <li class="fragment"><strong>IA como alavanca de produtividade.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 13 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo9.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo9.png"></div>
+<div class="panel">
+<h2>Decisão Estratégica</h2>
+<ul>
+<li class="fragment">Manter também é decidir</li>
+<li class="fragment">Evoluir exige disciplina</li>
+<li class="fragment">Escolha institucional</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- SLIDE 12 — IA como Estratégia Institucional -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo13.png" alt="IA Estratégica"></div>
-        <aside class="notes">
-          A Presidência trouxe o desafio da IA para os sistemas do Tribunal.
-          Isso exige governança, arquitetura e política de dados.
-          IA não pode ser modismo. Precisa ser estratégia.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo13.png" alt="IA Estratégica"></div>
-          <div class="panel">
-            <h2>IA como Estratégia Institucional</h2>
-            <ul>
-              <li class="fragment">Desafio institucional: IA para potencializar usuários.</li>
-              <li class="fragment">Exige governança, arquitetura e política de dados.</li>
-              <li class="fragment">Segurança, rastreabilidade e responsabilidade.</li>
-              <li class="fragment"><strong>IA não é modismo — é estratégia.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
+<!-- EIXO 14 -->
+<section>
+<section>
+<div class="full-image"><img src="assets/eixo10.png"></div>
+</section>
+<section>
+<div class="two-col">
+<div class="image-frame"><img src="assets/eixo10.png"></div>
+<div class="panel">
+<h2>Plano 90 Dias</h2>
+<ul>
+<li class="fragment">0–30 Estabilizar</li>
+<li class="fragment">30–60 Organizar</li>
+<li class="fragment">60–90 Evoluir</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
 
-    <!-- BLOCO 5 — A VIRADA -->
-    <section class="block" data-transition="fade">
-      <div class="kicker">BLOCO 5</div>
-      <h2>A Virada</h2>
-      <p>Modelo sustentável, decisão estratégica e plano de transição em 90 dias.</p>
-    </section>
+<!-- ENCERRAMENTO -->
+<section>
+<div class="full-image">
+<img src="assets/encerramento.png">
+</div>
+</section>
 
-    <!-- SLIDE 13 — Modelo Sustentável -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo8.png" alt="Modelo Sustentável"></div>
-        <aside class="notes">
-          Existe um modelo mais equilibrado.
-          Separação clara de fluxos. Governança formalizada.
-          Qualidade integrada. Evolução tecnológica contínua.
-          Redução da recorrência.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo8.png" alt="Modelo Sustentável"></div>
-          <div class="panel">
-            <h2>Modelo Sustentável</h2>
-            <ul>
-              <li class="fragment">Separação clara de fluxos (projetos x sustentação).</li>
-              <li class="fragment">Governança formalizada e qualidade integrada.</li>
-              <li class="fragment">Evolução tecnológica contínua.</li>
-              <li class="fragment"><strong>Redução da recorrência.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- SLIDE 14 — Decisão Estratégica -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo9.png" alt="Decisão Estratégica"></div>
-        <aside class="notes">
-          Manter o modelo atual também é uma decisão.
-          Evoluir exige disciplina, não ruptura.
-          A escolha é estratégica.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo9.png" alt="Decisão Estratégica"></div>
-          <div class="panel">
-            <h2>Decisão Estratégica</h2>
-            <ul>
-              <li class="fragment">Manter o modelo atual também é decidir.</li>
-              <li class="fragment">Evoluir exige disciplina e governança.</li>
-              <li class="fragment">Sem ruptura — com método.</li>
-              <li class="fragment"><strong>A escolha é estratégica.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- SLIDE 15 — Plano de Transição (90 dias) -->
-    <section>
-      <section data-transition="zoom">
-        <div class="full-image"><img src="assets/eixo10.png" alt="Plano 90 dias"></div>
-        <aside class="notes">
-          Propomos uma transição estruturada em três fases:
-          Estabilização. Organização. Evolução estrutural.
-          Em 90 dias podemos reorganizar a base.
-        </aside>
-      </section>
-      <section data-transition="fade">
-        <div class="two-col">
-          <div class="image-frame"><img src="assets/eixo10.png" alt="Plano 90 dias"></div>
-          <div class="panel">
-            <h2>Plano de Transição (90 dias)</h2>
-            <ul>
-              <li class="fragment"><strong>0–30</strong>: estabilização (papéis, gates, métricas).</li>
-              <li class="fragment"><strong>30–60</strong>: organização (WIP, fluxo, backlog).</li>
-              <li class="fragment"><strong>60–90</strong>: evolução (roadmap técnico e redução de recorrência).</li>
-              <li class="fragment"><strong>Base reorganizada com previsibilidade.</strong></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- ENCERRAMENTO — Construção Conjunta -->
-    <section data-transition="fade">
-      <div class="cover-wrap">
-        <img src="assets/encerramento.png" alt="Encerramento">
-        <div class="overlay"></div>
-        <div class="cover-text">
-          <div class="kicker">Encerramento</div>
-          <h1 style="margin-bottom:10px;">Construção Conjunta</h1>
-          <p>
-            Nada é imposição. Tudo é construção conjunta: visão compartilhada,
-            gestão colaborativa e decisões construídas em conjunto — com governança e sustentabilidade.
-          </p>
-          <div class="chips" style="margin-top:18px;">
-            <span class="chip">Visão compartilhada</span>
-            <span class="chip">Gestão colaborativa</span>
-            <span class="chip">Decisões em conjunto</span>
-            <span class="chip">Governança</span>
-            <span class="chip">Sustentabilidade</span>
-          </div>
-        </div>
-      </div>
-
-      <aside class="notes">
-        Nada aqui é imposição.
-        É construção conjunta.
-        Visão compartilhada.
-        Gestão colaborativa.
-        Decisões construídas em conjunto.
-        Tecnologia com governança e sustentabilidade.
-
-        Pausa final.
-
-        Nosso compromisso é com a solidez institucional.
-      </aside>
-    </section>
-
-  </div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@4/plugin/notes/notes.js"></script>
-
 <script>
-  Reveal.initialize({
-    hash: true,
-    transition: 'slide',
-    backgroundTransition: 'fade',
-    transitionSpeed: 'default',
-    plugins: [ RevealNotes ],
-    // Tamanho 16:9 padrão para projetor
-    width: 1280,
-    height: 720,
-    margin: 0.06
-  });
-
-  function updateUI(){
-    const total = Reveal.getTotalSlides();
-    const idx = Reveal.getSlidePastCount(); // conta progressão real inclusive verticais
-    const pct = total <= 1 ? 100 : (idx / (total - 1)) * 100;
-
-    document.getElementById('progress').style.width = pct + '%';
-    document.getElementById('counter').textContent = (idx + 1) + ' / ' + total;
-  }
-
-  Reveal.on('ready', updateUI);
-  Reveal.on('slidechanged', updateUI);
+Reveal.initialize({
+hash:true,
+transition:'slide'
+});
 </script>
+
 </body>
 </html>
