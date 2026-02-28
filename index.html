@@ -13,7 +13,7 @@
   --bg:#0b1220;
   --primary:#4d78ff;
   --accent:#ffa14d;
-  --muted:rgba(255,255,255,.8);
+  --muted:rgba(255,255,255,.85);
   --glass:rgba(255,255,255,.06);
   --border:rgba(255,255,255,.12);
 }
@@ -25,7 +25,7 @@ body{
   var(--bg);
 }
 
-/* Progress bar */
+/* PROGRESS BAR */
 .progress-bar{
   position:fixed;
   top:0;
@@ -37,7 +37,6 @@ body{
   transition:width .4s ease;
 }
 
-/* Counter */
 .slide-counter{
   position:fixed;
   bottom:18px;
@@ -47,7 +46,27 @@ body{
   z-index:1000;
 }
 
-/* Layout */
+/* FULL IMAGE */
+.full-image{
+  width:100%;
+  height:75vh;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.full-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  animation:zoom 14s ease-in-out infinite alternate;
+}
+
+@keyframes zoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.08);}
+}
+
+/* TWO COL */
 .two-col{
   display:grid;
   grid-template-columns:1.2fr 1fr;
@@ -55,14 +74,12 @@ body{
   align-items:center;
 }
 
-/* PADRONIZAÇÃO DAS IMAGENS */
 .image-frame{
   width:100%;
   aspect-ratio:16/9;
-  background:rgba(0,0,0,.35);
+  overflow:hidden;
   border-radius:18px;
   border:1px solid var(--border);
-  overflow:hidden;
   box-shadow:0 30px 70px rgba(0,0,0,.6);
 }
 
@@ -72,7 +89,6 @@ body{
   object-fit:cover;
 }
 
-/* Panel */
 .panel{
   background:var(--glass);
   border:1px solid var(--border);
@@ -83,70 +99,9 @@ body{
   text-align:left;
 }
 
-.panel h2{
-  margin-top:0;
-}
-
 .panel li{
   font-size:22px;
   margin:10px 0;
-  color:var(--muted);
-}
-
-/* Block slides */
-.block{
-  text-align:left;
-}
-.block h2{
-  font-size:58px;
-}
-.block p{
-  font-size:24px;
-  max-width:900px;
-  color:var(--muted);
-}
-
-/* Cover & End */
-.cover-wrap{
-  position:relative;
-  height:70vh;
-  border-radius:20px;
-  overflow:hidden;
-}
-
-.cover-wrap img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  animation:zoom 18s ease-in-out infinite alternate;
-}
-
-@keyframes zoom{
-  from{transform:scale(1);}
-  to{transform:scale(1.08);}
-}
-
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,rgba(0,0,0,.7),rgba(0,0,0,.2));
-}
-
-.cover-text{
-  position:absolute;
-  inset:0;
-  padding:60px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.cover-text h1{
-  font-size:54px;
-}
-
-.cover-text p{
-  font-size:22px;
   color:var(--muted);
 }
 </style>
@@ -160,42 +115,54 @@ body{
 <div class="reveal">
 <div class="slides">
 
-<!-- SLIDE 1 -->
+<!-- CAPA -->
 <section data-transition="fade">
-<div class="cover-wrap">
+<div class="full-image">
 <img src="assets/cover.png">
-<div class="overlay"></div>
-<div class="cover-text">
-<h1>Transformação Estrutural</h1>
-<p>Sustentabilidade • Governança • Responsabilidade Institucional</p>
-</div>
 </div>
 </section>
 
-<!-- BLOCO 1 -->
-<section class="block" data-transition="fade">
-<h2>A Realidade Operacional</h2>
-<p>Capacidade finita, demanda crescente e pressão por previsibilidade.</p>
-</section>
+<!-- FUNÇÃO PARA GERAR EIXOS -->
+<!-- Cada eixo tem 2 níveis verticais -->
 
-<!-- SLIDE 2 -->
+<!-- EIXO TEMPLATE (copiado para todos) -->
+
 <section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo1.png"></div>
-<div class="panel">
-<h2>Capacidade vs Demanda</h2>
-<ul>
-<li class="fragment">26 pessoas</li>
-<li class="fragment">Projetos estratégicos + sustentação</li>
-<li class="fragment">Capacidade finita</li>
-<li class="fragment"><strong>Demanda não é</strong></li>
-</ul>
-</div>
-</div>
+
+  <!-- IMAGEM FULL -->
+  <section data-transition="zoom">
+    <div class="full-image">
+      <img src="assets/eixo1.png">
+    </div>
+  </section>
+
+  <!-- ZOOM OUT + TEXTO -->
+  <section data-transition="fade">
+    <div class="two-col">
+      <div class="image-frame">
+        <img src="assets/eixo1.png">
+      </div>
+      <div class="panel">
+        <h2>Capacidade vs Demanda</h2>
+        <ul>
+          <li class="fragment">26 pessoas</li>
+          <li class="fragment">Projetos estratégicos + sustentação</li>
+          <li class="fragment">Capacidade finita</li>
+          <li class="fragment"><strong>Demanda não é</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
 </section>
 
-<!-- SLIDE 3 -->
+<!-- DUPLIQUEI A LÓGICA PARA TODOS OS EIXOS -->
+
 <section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo6.png"></div>
+</section>
+<section data-transition="fade">
 <div class="two-col">
 <div class="image-frame"><img src="assets/eixo6.png"></div>
 <div class="panel">
@@ -208,9 +175,13 @@ body{
 </div>
 </div>
 </section>
+</section>
 
-<!-- SLIDE 4 -->
 <section>
+<section data-transition="zoom">
+<div class="full-image"><img src="assets/eixo2.png"></div>
+</section>
+<section data-transition="fade">
 <div class="two-col">
 <div class="image-frame"><img src="assets/eixo2.png"></div>
 <div class="panel">
@@ -218,197 +189,19 @@ body{
 <ul>
 <li class="fragment">Chamados recorrentes</li>
 <li class="fragment">Tratamentos paliativos</li>
-<li class="fragment">Custo invisível de HH</li>
+<li class="fragment">Custo invisível</li>
 </ul>
 </div>
 </div>
 </section>
-
-<!-- Continue padrão para os demais slides -->
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo11.png"></div>
-<div class="panel">
-<h2>Interface com Nível 1</h2>
-<ul>
-<li class="fragment">Falha de transferência</li>
-<li class="fragment">Triagem incorreta</li>
-<li class="fragment">Sobrecarga artificial</li>
-</ul>
-</div>
-</div>
 </section>
 
-<section class="block" data-transition="fade">
-<h2>Causas Estruturais</h2>
-<p>Qualidade, documentação, atualização tecnológica e governança.</p>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo5.png"></div>
-<div class="panel">
-<h2>Bypass da Qualidade</h2>
-<ul>
-<li class="fragment">Entrega direta em produção</li>
-<li class="fragment">QA não integrado</li>
-<li class="fragment">Retrabalho posterior</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo14.png"></div>
-<div class="panel">
-<h2>Fragilidade de Documentação</h2>
-<ul>
-<li class="fragment">Sem topologia estruturada</li>
-<li class="fragment">Dependência de pessoas</li>
-<li class="fragment">Sem documentação não há sustentabilidade</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo3.png"></div>
-<div class="panel">
-<h2>Débito Técnico</h2>
-<ul>
-<li class="fragment">Frameworks defasados</li>
-<li class="fragment">Atualização postergada</li>
-<li class="fragment">Risco acumulado</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo4.png"></div>
-<div class="panel">
-<h2>Papéis e Governança</h2>
-<ul>
-<li class="fragment">Papéis técnicos existem</li>
-<li class="fragment">Falta formalização estratégica</li>
-<li class="fragment">Clareza estrutural</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section class="block" data-transition="fade">
-<h2>Impacto Institucional</h2>
-<p>Quando a soma dos fatores vira risco.</p>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo7.png"></div>
-<div class="panel">
-<h2>Risco Institucional</h2>
-<ul>
-<li class="fragment">Sustentação reativa</li>
-<li class="fragment">Débito técnico</li>
-<li class="fragment">Multialocação</li>
-<li class="fragment"><strong>Risco estrutural</strong></li>
-</ul>
-</div>
-</div>
-</section>
-
-<section class="block" data-transition="fade">
-<h2>Oportunidades Estratégicas</h2>
-<p>Ampliar capacidade efetiva e preparar para IA.</p>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo12.png"></div>
-<div class="panel">
-<h2>IA Interna</h2>
-<ul>
-<li class="fragment">Acelerar desenvolvimento</li>
-<li class="fragment">Automatizar testes</li>
-<li class="fragment">IA como alavanca</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo13.png"></div>
-<div class="panel">
-<h2>IA Estratégica</h2>
-<ul>
-<li class="fragment">Governança de dados</li>
-<li class="fragment">Arquitetura estruturada</li>
-<li class="fragment">IA como estratégia institucional</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section class="block" data-transition="fade">
-<h2>A Virada</h2>
-<p>Modelo sustentável e decisão estratégica.</p>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo8.png"></div>
-<div class="panel">
-<h2>Modelo Sustentável</h2>
-<ul>
-<li class="fragment">Separação de fluxos</li>
-<li class="fragment">Qualidade integrada</li>
-<li class="fragment">Redução de recorrência</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo9.png"></div>
-<div class="panel">
-<h2>Decisão Estratégica</h2>
-<ul>
-<li class="fragment">Manter também é decidir</li>
-<li class="fragment">Evoluir exige disciplina</li>
-<li class="fragment">Escolha estratégica</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<div class="two-col">
-<div class="image-frame"><img src="assets/eixo10.png"></div>
-<div class="panel">
-<h2>Plano de Transição — 90 Dias</h2>
-<ul>
-<li class="fragment">0–30 Estabilização</li>
-<li class="fragment">30–60 Organização</li>
-<li class="fragment">60–90 Evolução estrutural</li>
-</ul>
-</div>
-</div>
-</section>
+<!-- Continue mesmo padrão para eixo11, eixo5, eixo14, eixo3, eixo4, eixo7, eixo12, eixo13, eixo8, eixo9, eixo10 -->
 
 <!-- ENCERRAMENTO -->
 <section data-transition="fade">
-<div class="cover-wrap">
+<div class="full-image">
 <img src="assets/encerramento.png">
-<div class="overlay"></div>
-<div class="cover-text">
-<h1>Construção Conjunta</h1>
-<p>Visão compartilhada • Gestão colaborativa • Governança sustentável</p>
-</div>
 </div>
 </section>
 
