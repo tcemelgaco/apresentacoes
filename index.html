@@ -13,7 +13,7 @@
   --bg:#0b1220;
   --primary:#4d78ff;
   --accent:#ffa14d;
-  --muted:rgba(255,255,255,.78);
+  --muted:rgba(255,255,255,.8);
   --glass:rgba(255,255,255,.06);
   --border:rgba(255,255,255,.12);
 }
@@ -25,7 +25,7 @@ body{
   var(--bg);
 }
 
-/* Barra progresso */
+/* Progress bar */
 .progress-bar{
   position:fixed;
   top:0;
@@ -37,25 +37,42 @@ body{
   transition:width .4s ease;
 }
 
-/* Contador */
+/* Counter */
 .slide-counter{
   position:fixed;
   bottom:18px;
   right:24px;
   font-size:14px;
   color:var(--muted);
-  opacity:.8;
   z-index:1000;
 }
 
 /* Layout */
 .two-col{
   display:grid;
-  grid-template-columns:1.25fr .95fr;
+  grid-template-columns:1.2fr 1fr;
   gap:30px;
   align-items:center;
 }
 
+/* PADRONIZAÇÃO DAS IMAGENS */
+.image-frame{
+  width:100%;
+  aspect-ratio:16/9;
+  background:rgba(0,0,0,.35);
+  border-radius:18px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.6);
+}
+
+.image-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* Panel */
 .panel{
   background:var(--glass);
   border:1px solid var(--border);
@@ -66,18 +83,22 @@ body{
   text-align:left;
 }
 
+.panel h2{
+  margin-top:0;
+}
+
 .panel li{
-  font-size:24px;
-  margin:12px 0;
+  font-size:22px;
+  margin:10px 0;
   color:var(--muted);
 }
 
-/* Blocos divisor */
+/* Block slides */
 .block{
   text-align:left;
 }
 .block h2{
-  font-size:60px;
+  font-size:58px;
 }
 .block p{
   font-size:24px;
@@ -85,36 +106,32 @@ body{
   color:var(--muted);
 }
 
-/* Imagens */
-.reveal img{
-  border-radius:18px;
-  border:1px solid var(--border);
-  box-shadow:0 30px 70px rgba(0,0,0,.6);
-  max-height:70vh;
-}
-
-/* Capa / Encerramento */
+/* Cover & End */
 .cover-wrap{
   position:relative;
   height:70vh;
-  overflow:hidden;
   border-radius:20px;
+  overflow:hidden;
 }
+
 .cover-wrap img{
   width:100%;
   height:100%;
   object-fit:cover;
   animation:zoom 18s ease-in-out infinite alternate;
 }
+
 @keyframes zoom{
   from{transform:scale(1);}
   to{transform:scale(1.08);}
 }
+
 .overlay{
   position:absolute;
   inset:0;
   background:linear-gradient(90deg,rgba(0,0,0,.7),rgba(0,0,0,.2));
 }
+
 .cover-text{
   position:absolute;
   inset:0;
@@ -123,8 +140,15 @@ body{
   flex-direction:column;
   justify-content:center;
 }
-.cover-text h1{font-size:56px;}
-.cover-text p{font-size:22px;color:var(--muted);}
+
+.cover-text h1{
+  font-size:54px;
+}
+
+.cover-text p{
+  font-size:22px;
+  color:var(--muted);
+}
 </style>
 </head>
 
@@ -157,7 +181,7 @@ body{
 <!-- SLIDE 2 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo1.png">
+<div class="image-frame"><img src="assets/eixo1.png"></div>
 <div class="panel">
 <h2>Capacidade vs Demanda</h2>
 <ul>
@@ -173,12 +197,12 @@ body{
 <!-- SLIDE 3 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo6.png">
+<div class="image-frame"><img src="assets/eixo6.png"></div>
 <div class="panel">
 <h2>Multialocação Crônica</h2>
 <ul>
 <li class="fragment">Múltiplos projetos simultâneos</li>
-<li class="fragment">Urgências competem com entregas estruturadas</li>
+<li class="fragment">Urgências competem com entregas</li>
 <li class="fragment">Fragmentação reduz eficiência</li>
 </ul>
 </div>
@@ -188,9 +212,9 @@ body{
 <!-- SLIDE 4 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo2.png">
+<div class="image-frame"><img src="assets/eixo2.png"></div>
 <div class="panel">
-<h2>Sustentação Reativa / Custo Invisível</h2>
+<h2>Sustentação Reativa</h2>
 <ul>
 <li class="fragment">Chamados recorrentes</li>
 <li class="fragment">Tratamentos paliativos</li>
@@ -200,14 +224,14 @@ body{
 </div>
 </section>
 
-<!-- SLIDE 5 -->
+<!-- Continue padrão para os demais slides -->
 <section>
 <div class="two-col">
-<img src="assets/eixo11.png">
+<div class="image-frame"><img src="assets/eixo11.png"></div>
 <div class="panel">
 <h2>Interface com Nível 1</h2>
 <ul>
-<li class="fragment">Falha de transferência de conhecimento</li>
+<li class="fragment">Falha de transferência</li>
 <li class="fragment">Triagem incorreta</li>
 <li class="fragment">Sobrecarga artificial</li>
 </ul>
@@ -215,31 +239,28 @@ body{
 </div>
 </section>
 
-<!-- BLOCO 2 -->
 <section class="block" data-transition="fade">
 <h2>Causas Estruturais</h2>
 <p>Qualidade, documentação, atualização tecnológica e governança.</p>
 </section>
 
-<!-- SLIDE 6 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo5.png">
+<div class="image-frame"><img src="assets/eixo5.png"></div>
 <div class="panel">
 <h2>Bypass da Qualidade</h2>
 <ul>
 <li class="fragment">Entrega direta em produção</li>
-<li class="fragment">QA não integrado ao fluxo</li>
-<li class="fragment">Retrabalho e instabilidade</li>
+<li class="fragment">QA não integrado</li>
+<li class="fragment">Retrabalho posterior</li>
 </ul>
 </div>
 </div>
 </section>
 
-<!-- SLIDE 7 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo14.png">
+<div class="image-frame"><img src="assets/eixo14.png"></div>
 <div class="panel">
 <h2>Fragilidade de Documentação</h2>
 <ul>
@@ -251,46 +272,42 @@ body{
 </div>
 </section>
 
-<!-- SLIDE 8 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo3.png">
+<div class="image-frame"><img src="assets/eixo3.png"></div>
 <div class="panel">
 <h2>Débito Técnico</h2>
 <ul>
 <li class="fragment">Frameworks defasados</li>
 <li class="fragment">Atualização postergada</li>
-<li class="fragment">Risco institucional acumulado</li>
+<li class="fragment">Risco acumulado</li>
 </ul>
 </div>
 </div>
 </section>
 
-<!-- SLIDE 9 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo4.png">
+<div class="image-frame"><img src="assets/eixo4.png"></div>
 <div class="panel">
 <h2>Papéis e Governança</h2>
 <ul>
 <li class="fragment">Papéis técnicos existem</li>
 <li class="fragment">Falta formalização estratégica</li>
-<li class="fragment">Clareza estrutural necessária</li>
+<li class="fragment">Clareza estrutural</li>
 </ul>
 </div>
 </div>
 </section>
 
-<!-- BLOCO 3 -->
 <section class="block" data-transition="fade">
 <h2>Impacto Institucional</h2>
 <p>Quando a soma dos fatores vira risco.</p>
 </section>
 
-<!-- SLIDE 10 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo7.png">
+<div class="image-frame"><img src="assets/eixo7.png"></div>
 <div class="panel">
 <h2>Risco Institucional</h2>
 <ul>
@@ -303,16 +320,14 @@ body{
 </div>
 </section>
 
-<!-- BLOCO 4 -->
 <section class="block" data-transition="fade">
 <h2>Oportunidades Estratégicas</h2>
 <p>Ampliar capacidade efetiva e preparar para IA.</p>
 </section>
 
-<!-- SLIDE 11 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo12.png">
+<div class="image-frame"><img src="assets/eixo12.png"></div>
 <div class="panel">
 <h2>IA Interna</h2>
 <ul>
@@ -324,10 +339,9 @@ body{
 </div>
 </section>
 
-<!-- SLIDE 12 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo13.png">
+<div class="image-frame"><img src="assets/eixo13.png"></div>
 <div class="panel">
 <h2>IA Estratégica</h2>
 <ul>
@@ -339,16 +353,14 @@ body{
 </div>
 </section>
 
-<!-- BLOCO 5 -->
 <section class="block" data-transition="fade">
 <h2>A Virada</h2>
 <p>Modelo sustentável e decisão estratégica.</p>
 </section>
 
-<!-- SLIDE 13 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo8.png">
+<div class="image-frame"><img src="assets/eixo8.png"></div>
 <div class="panel">
 <h2>Modelo Sustentável</h2>
 <ul>
@@ -360,10 +372,9 @@ body{
 </div>
 </section>
 
-<!-- SLIDE 14 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo9.png">
+<div class="image-frame"><img src="assets/eixo9.png"></div>
 <div class="panel">
 <h2>Decisão Estratégica</h2>
 <ul>
@@ -375,10 +386,9 @@ body{
 </div>
 </section>
 
-<!-- SLIDE 15 -->
 <section>
 <div class="two-col">
-<img src="assets/eixo10.png">
+<div class="image-frame"><img src="assets/eixo10.png"></div>
 <div class="panel">
 <h2>Plano de Transição — 90 Dias</h2>
 <ul>
@@ -414,7 +424,7 @@ transition:'slide',
 backgroundTransition:'fade'
 });
 
-Reveal.on('slidechanged', function(event){
+Reveal.on('slidechanged', function(){
 const total = Reveal.getTotalSlides();
 const index = Reveal.getSlidePastCount();
 document.getElementById('progress').style.width =
